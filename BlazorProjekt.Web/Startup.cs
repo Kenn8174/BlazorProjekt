@@ -11,6 +11,12 @@ using Microsoft.Extensions.Hosting;
 using BlazorProjekt.Web.Data;
 using BlazorProjekt.Repository.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using log4net;
+using BlazorProjekt.Service.Services;
+using BlazorProjekt.Service.Interfaces;
+using BlazorProjekt.Repository.Interfaces;
+using BlazorProjekt.Repository.Repositories;
 
 namespace BlazorProjekt.Web
 {
@@ -29,13 +35,28 @@ namespace BlazorProjekt.Web
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            #region Scoped
+            services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<ISexService, SexService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAccountTypeService, AccountTypeService>();
+            services.AddScoped<MappingService, MappingService>();
+
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<ISexRepository, SexRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
+            #endregion
+
+
             services.AddSingleton<WeatherForecastService>();
             services.AddDbContext<BlazorBankContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Main")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -47,6 +68,7 @@ namespace BlazorProjekt.Web
             }
 
             app.UseStaticFiles();
+            loggerFactory.AddLog4Net();
 
             app.UseRouting();
 

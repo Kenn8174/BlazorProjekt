@@ -1,0 +1,43 @@
+﻿@page "/getusers"
+
+@using BlazorProjekt.Service.Interfaces;
+@using BlazorProjekt.Service.DataTransferObjects;
+@inject IOwnerService ownerService
+
+<h1>Weather forecast23123123</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Admin</th>
+        </tr>
+    </thead>
+    @if (owners != null)
+    {
+        <tbody>
+            @foreach (var owner in owners)
+            {
+                <tr>
+                    <td>@owner.Name</td>
+                    <td>@owner.Age</td>
+                    <td>@owner.Admin</td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+
+@code {
+
+    private List<OwnerDTO> owners;
+
+    protected override async Task OnInitializedAsync()
+    {
+        owners = await ownerService.GetAll();
+    }
+}
