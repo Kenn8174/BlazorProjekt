@@ -18,6 +18,7 @@ namespace BlazorProjekt.Repository.Context
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Sex> Sexes { get; set; }
+        public DbSet<Credential> Credentials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,10 +26,12 @@ namespace BlazorProjekt.Repository.Context
             modelBuilder.Entity<AccountType>().HasKey(o => o.AccountTypeId);
             modelBuilder.Entity<Owner>().HasKey(o => o.OwnerId);
             modelBuilder.Entity<Sex>().HasKey(o => o.SexId);
+            modelBuilder.Entity<Credential>().HasKey(o => o.CredentialId);
 
             modelBuilder.Entity<Account>().HasOne(o => o.AccountType).WithMany(o => o.Accounts).HasForeignKey(o => o.FKAccountTypeId);
             modelBuilder.Entity<Account>().HasOne(o => o.Owner).WithMany(o => o.Accounts).HasForeignKey(o => o.FKOwnerId);
             modelBuilder.Entity<Owner>().HasOne(o => o.Sex).WithMany(o => o.Owners).HasForeignKey(o => o.FKSexId);
+            modelBuilder.Entity<Owner>().HasOne(o => o.Credential).WithOne(o => o.Owner).HasForeignKey<Credential>(o => o.FKOwnerId);
 
             modelBuilder.Entity<AccountType>().HasData(
                 new AccountType { AccountTypeId = 1, Name = "CheckingsAccount", MinimumAge = 18, Interrest = 0.05m },
@@ -50,7 +53,7 @@ namespace BlazorProjekt.Repository.Context
                 new Account { AccountId = 1, FKAccountTypeId = 1, Balance = 100000.5m, FKOwnerId = 1 },
                 new Account { AccountId = 2, FKAccountTypeId = 2, Balance = 1000000m, FKOwnerId = 2 },
                 new Account { AccountId = 3, FKAccountTypeId = 3, Balance = 1000.1m, FKOwnerId = 3 });
-            
+
             base.OnModelCreating(modelBuilder);
         }
     }

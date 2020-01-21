@@ -15,5 +15,6 @@ namespace BlazorProjekt.Service.DataTransferObjects
         public List<AccountDTO> Accounts { get; set; }
         public int FKSexId { get; set; }
         public SexDTO Sex { get; set; }
+        public CredentialDTO Credential { get; set; }
     }
 }

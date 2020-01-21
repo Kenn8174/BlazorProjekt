@@ -3,14 +3,16 @@ using BlazorProjekt.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazorProjekt.Repository.Migrations
 {
     [DbContext(typeof(BlazorBankContext))]
-    partial class BlazorBankContextModelSnapshot : ModelSnapshot
+    [Migration("20200121134044_RemovedFKCredentialIdFromOwnersTable")]
+    partial class RemovedFKCredentialIdFromOwnersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

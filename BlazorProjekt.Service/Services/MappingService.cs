@@ -37,6 +37,9 @@ namespace BlazorProjekt.Service.Services
                 cfg.CreateMap<AccountType, AccountTypeDTO>();
                 cfg.CreateMap<AccountTypeDTO, AccountType>();
 
+                //Credential
+                cfg.CreateMap<Credential, CredentialDTO>();
+                cfg.CreateMap<CredentialDTO, Credential>();
             });
 
             try

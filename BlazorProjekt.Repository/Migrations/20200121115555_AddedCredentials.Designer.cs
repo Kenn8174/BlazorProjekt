@@ -3,14 +3,16 @@ using BlazorProjekt.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazorProjekt.Repository.Migrations
 {
     [DbContext(typeof(BlazorBankContext))]
-    partial class BlazorBankContextModelSnapshot : ModelSnapshot
+    [Migration("20200121115555_AddedCredentials")]
+    partial class AddedCredentials
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,6 +149,9 @@ namespace BlazorProjekt.Repository.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int>("FKCredentialId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FKSexId")
                         .HasColumnType("int");
 
@@ -165,6 +170,7 @@ namespace BlazorProjekt.Repository.Migrations
                             OwnerId = 1,
                             Admin = false,
                             Age = 20,
+                            FKCredentialId = 0,
                             FKSexId = 1,
                             Name = "Jimmy Elkjer"
                         },
@@ -173,6 +179,7 @@ namespace BlazorProjekt.Repository.Migrations
                             OwnerId = 2,
                             Admin = false,
                             Age = 22,
+                            FKCredentialId = 0,
                             FKSexId = 1,
                             Name = "Kenneth Jessen"
                         },
@@ -181,6 +188,7 @@ namespace BlazorProjekt.Repository.Migrations
                             OwnerId = 3,
                             Admin = false,
                             Age = 20,
+                            FKCredentialId = 0,
                             FKSexId = 3,
                             Name = "Kristian Biehl Kuhrt"
                         });
