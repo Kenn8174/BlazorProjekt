@@ -45,12 +45,14 @@ namespace BlazorProjekt.Web
             services.AddServerSideBlazor();
 
             #region Scoped
+            services.AddScoped<ICredentialService, CredentialService>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<ISexService, SexService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAccountTypeService, AccountTypeService>();
             services.AddScoped<MappingService, MappingService>();
 
+            services.AddScoped<ICredentialRepository, CredentialRepository>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
             services.AddScoped<ISexRepository, SexRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();

@@ -17,5 +17,6 @@ namespace BlazorProjekt.Repository.Entities
         public List<Account> Accounts { get; set; }
         public int FKSexId { get; set; }
         public Sex Sex { get; set; }
+        public Credential Credential { get; set; }
     }
 }
