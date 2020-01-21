@@ -25,6 +25,9 @@ namespace BlazorProjekt.Repository.Repositories
             return (await query.SingleAsync(o => o.OwnerId == ownerId)).Admin;
         }
 
+        /// <summary>
+        /// Gets the <see cref="Owner"/> with the matching ownerId or throws if the <see cref="Owner"/> does not exist
+        /// </summary>
         public async Task<Owner> GetOwnerById(int ownerId)
         {
             IQueryable<Owner> query = _dbContext.Owners.AsNoTracking();

@@ -21,6 +21,9 @@ namespace BlazorProjekt.Service.Services
             _mappingService = mappingService;
         }
 
+        /// <summary>
+        /// Gets the <see cref="SexDTO"/> with the matching sexId or returns null if the <see cref="SexDTO"/> does not exist
+        /// </summary>
         public async Task<SexDTO> GetSexById(int sexId)
         {
             try

@@ -18,6 +18,9 @@ namespace BlazorProjekt.Repository.Repositories
             _dbContext = blazorBankContext;
         }
 
+        /// <summary>
+        /// Gets the <see cref="AccountType"/> with the matching accountTypeId or throws if the <see cref="AccountType"/> does not exist
+        /// </summary>
         public async Task<AccountType> GetAccountTypeById(int accountTypeId)
         {
             return await _dbContext.AccountTypes.SingleAsync(o => o.AccountTypeId == accountTypeId);

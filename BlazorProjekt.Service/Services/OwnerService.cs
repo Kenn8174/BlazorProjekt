@@ -21,6 +21,9 @@ namespace BlazorProjekt.Service.Services
             _mappingService = mappingService;
         }
 
+        /// <summary>
+        /// Gets the <see cref="OwnerDTO"/> with the matching ownerId or returns null if the <see cref="OwnerDTO"/> does not exist
+        /// </summary>
         public async Task<OwnerDTO> GetOwnerById(int ownerId)
         {
             try

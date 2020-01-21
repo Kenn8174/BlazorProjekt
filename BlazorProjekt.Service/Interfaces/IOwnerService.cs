@@ -14,6 +14,10 @@ namespace BlazorProjekt.Service.Interfaces
         /// Checks if the <see cref="OwnerDTO"/> with the <paramref name="ownerId"/> is an admin
         /// </summary>
         Task<bool> IsAdmin(int ownerId);
+
+        /// <summary>
+        /// Gets the <see cref="OwnerDTO"/> with the matching ownerId or returns null if the <see cref="OwnerDTO"/> does not exist
+        /// </summary>
         Task<OwnerDTO> GetOwnerById(int ownerId);
     }
 }
