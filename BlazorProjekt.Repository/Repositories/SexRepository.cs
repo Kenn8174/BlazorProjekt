@@ -18,6 +18,9 @@ namespace BlazorProjekt.Repository.Repositories
             _dbContext = blazorBankContext;
         }
 
+        /// <summary>
+        /// Gets the <see cref="Sex"/> with the matching sexId or throws if the <see cref="Sex"/> does not exist
+        /// </summary>
         public async Task<Sex> GetSexById(int sexId)
         {
            return await _dbContext.Sexes.SingleAsync(o => o.SexId == sexId);

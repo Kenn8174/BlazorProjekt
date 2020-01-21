@@ -21,6 +21,9 @@ namespace BlazorProjekt.Service.Services
             _mappingService = mappingService;
         }
 
+        /// <summary>
+        /// Gets the <see cref="AccountTypeDTO"/> with the matching accountTypeId or returns null if the <see cref="AccountTypeDTO"/> does not exist
+        /// </summary>
         public async Task<AccountTypeDTO> GetAccountTypeById(int accountTypeId)
         {
             try
