@@ -7,12 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorProjekt.Repository", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99BB4621-AE0C-4FDE-9C78-D5C91E9DAD62}"
 	ProjectSection(SolutionItems) = preProject
+		BlazorDokumentation.md = BlazorDokumentation.md
 		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorProjekt.Web", "BlazorProjekt.Web\BlazorProjekt.Web.csproj", "{A242E5E2-EB41-4F0A-BCC4-E54A33512439}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorProjekt.Service", "BlazorProjekt.Service\BlazorProjekt.Service.csproj", "{FE2EA6EF-2958-402E-932D-F0D82A76271E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorProjekt.Service", "BlazorProjekt.Service\BlazorProjekt.Service.csproj", "{FE2EA6EF-2958-402E-932D-F0D82A76271E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

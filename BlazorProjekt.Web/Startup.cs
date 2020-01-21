@@ -17,6 +17,10 @@ using BlazorProjekt.Service.Services;
 using BlazorProjekt.Service.Interfaces;
 using BlazorProjekt.Repository.Interfaces;
 using BlazorProjekt.Repository.Repositories;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net;
 
 namespace BlazorProjekt.Web
 {
@@ -33,6 +37,7 @@ namespace BlazorProjekt.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
@@ -47,6 +52,9 @@ namespace BlazorProjekt.Web
             services.AddScoped<ISexRepository, SexRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
+
+
+            services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
             #endregion
 
 
@@ -72,11 +80,15 @@ namespace BlazorProjekt.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
         }
     }
 }
