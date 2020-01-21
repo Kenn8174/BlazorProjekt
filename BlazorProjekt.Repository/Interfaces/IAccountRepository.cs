@@ -13,5 +13,20 @@ namespace BlazorProjekt.Repository.Interfaces
         /// Gets the <see cref="Account"/> with the matching accountId or throws if the <see cref="Account"/> does not exist
         /// </summary>
         Task<Account> GetAccountById(int accountId);
+
+        /// <summary>
+        /// Deposits an amount into the <see cref="Account"/> with a matching accountId or throws if the <see cref="Account"/> does not exist 
+        /// </summary>
+        Task Deposit(int accountId, decimal amount);
+
+        /// <summary>
+        /// Withdraws an amount from the <see cref="Account"/> with a matching accountId or throws if the <see cref="Account"/> does not exist 
+        /// </summary>
+        Task Withdraw(int accountId, decimal amount);
+
+        /// <summary>
+        /// Charges interests for all bank accounts
+        /// </summary>
+        Task ChargeInterest();
     }
 }

@@ -22,7 +22,39 @@ namespace BlazorProjekt.Service.Services
         }
 
         /// <summary>
-        /// Gets the <see cref="AccountDTO"/> with the matching accountId or returns null if the <see cref="AccountDTO"/> does not exist
+        /// Charges interests for all bank accounts.
+        /// </summary>
+        public async Task ChargeInterest()
+        {
+            try
+            {
+                await _accountRepository.ChargeInterest();
+                LogInformation($"Successfully charged interests");
+            }
+            catch (Exception e)
+            {
+                LogError($"Failed to charged interests", e);
+            }
+        }
+
+        /// <summary>
+        /// Deposits an amount into the <see cref="AccountDTO"/> with a matching accountId.
+        /// </summary>
+        public async Task Deposit(int accountId, decimal amount)
+        {
+            try
+            {
+                await _accountRepository.Deposit(accountId, amount);
+                LogInformation($"Successfully deposited {amount} into the account with the accountId: {accountId}");
+            }
+            catch (Exception e)
+            {
+                LogError($"Failed to deposit {amount} into the account with the accountId: {accountId}", e);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="AccountDTO"/> with the matching accountId or returns null if the <see cref="AccountDTO"/> does not exist.
         /// </summary>
         public async Task<AccountDTO> GetAccountById(int accountId)
         {
@@ -36,6 +68,22 @@ namespace BlazorProjekt.Service.Services
             {
                 LogError($"Failed to fetch the account with the accountId: {accountId}", e);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Withdraws an amount from the <see cref="AccountDTO"/> with a matching accountId.
+        /// </summary>
+        public async Task Withdraw(int accountId, decimal amount)
+        {
+            try
+            {
+                await _accountRepository.Withdraw(accountId, amount);
+                LogInformation($"Successfully withdrew {amount} from the account with the accountId: {accountId}");
+            }
+            catch (Exception e)
+            {
+                LogError($"Failed to withdraw {amount} from the account with the accountId: {accountId}", e);
             }
         }
     }
