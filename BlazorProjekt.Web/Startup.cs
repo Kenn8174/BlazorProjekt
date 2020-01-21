@@ -92,6 +92,7 @@ namespace BlazorProjekt.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
