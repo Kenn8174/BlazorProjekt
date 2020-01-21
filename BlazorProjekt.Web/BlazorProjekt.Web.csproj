@@ -26,4 +26,8 @@
     <ProjectReference Include="..\BlazorProjekt.Service\BlazorProjekt.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admininstrator\" />
+  </ItemGroup>
+
 </Project>

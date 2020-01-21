@@ -12,9 +12,7 @@ namespace BlazorProjekt.Web
         public async Task<IActionResult> OnGetAsync()
         {
             // Clear the existing external cookie
-            await HttpContext
-                .SignOutAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return LocalRedirect(Url.Content("~/"));
         }
     }

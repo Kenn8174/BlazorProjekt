@@ -3,7 +3,7 @@
 <AuthorizeView>
     <Authorized>
         <b>Hello, @context.User.Identity.Name!</b>
-        <a class="ml-md-auto btn btn-primary"
+        <a class=" btn btn-danger"
            href="/logout?returnUrl=/"
            target="_top">Logout</a>
     </Authorized>
@@ -15,7 +15,7 @@
         <input type="password"
                placeholder="Password"
                @bind="@Password" />
-        <a class="ml-md-auto btn btn-primary"
+        <a class="ml-md-auto btn btn-success"
            href="/login?paramUsername=@encode(@Username)&paramPassword=@encode(@Password)"
            target="_top">Login</a>
     </NotAuthorized>

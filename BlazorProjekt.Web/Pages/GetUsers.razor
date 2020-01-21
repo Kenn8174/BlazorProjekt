@@ -1,5 +1,5 @@
 ﻿@page "/getusers"
-
+@attribute [Authorize]
 @using BlazorProjekt.Service.Interfaces;
 @using BlazorProjekt.Service.DataTransferObjects;
 @inject IOwnerService ownerService

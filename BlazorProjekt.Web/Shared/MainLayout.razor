@@ -1,16 +1,26 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="sidebar">
-    <NavMenu />
+    <NavMenu/>
 </div>
 
 <div class="main">
     <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        <LoginControl />
+        <AuthorizeView>
+            <Authorized>
+                <LoginControl />
+            </Authorized>
+            <NotAuthorized>
+                <a href="/Account/Login" class="btn btn-success">Login</a>
+            </NotAuthorized>
+        </AuthorizeView>
     </div>
 
     <div class="content px-4">
         @Body
     </div>
 </div>
+
+@code {
+    public HttpContext context { get; set; }
+}

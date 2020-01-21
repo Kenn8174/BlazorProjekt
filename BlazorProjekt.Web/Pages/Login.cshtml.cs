@@ -14,8 +14,7 @@ namespace BlazorProjekt.Web
     public class LoginModel : PageModel
     {
         public string ReturnUrl { get; set; }
-        public async Task<IActionResult>
-            OnGetAsync(string paramUsername, string paramPassword)
+        public async Task<IActionResult> OnGetAsync(string paramUsername, string paramPassword)
         {
             string returnUrl = Url.Content("~/");
             try
@@ -30,10 +29,10 @@ namespace BlazorProjekt.Web
             // In this example we just log the user in
             // (Always log the user in for this demo)
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, paramUsername),
-                new Claim(ClaimTypes.Role, "Administrator"),
-            };
+                {
+                    new Claim(ClaimTypes.Name, paramUsername),
+                    new Claim(ClaimTypes.Role, "Administrator"),
+                };
             var claimsIdentity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
