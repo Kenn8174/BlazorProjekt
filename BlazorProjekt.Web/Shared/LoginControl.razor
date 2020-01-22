@@ -1,8 +1,9 @@
 ﻿@page "/loginControl"
 @using System.Web;
+@using System.Security.Claims;
 <AuthorizeView>
     <Authorized>
-        <b>Hello, @context.User.Identity.Name!</b>
+        <b>Hello, @context.User.Claims.Single(o => o.Type == ClaimTypes.GivenName).Value!</b>
         <a class=" btn btn-danger"
            href="/logout?returnUrl=/"
            target="_top">Logout</a>

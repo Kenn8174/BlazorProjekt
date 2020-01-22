@@ -1,5 +1,85 @@
 ﻿@page "/"
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Http
+@using System.Security.Claims;
+@using BlazorProjekt.Service.Interfaces
+@using BlazorProjekt.Service.DataTransferObjects
+@inject IHttpContextAccessor httpContextAccessor
+@inject IOwnerService ownerService
+@inject IAccountService accountService
+<h1>Velkommen til banken</h1>
 
-<h1>Hello, world!</h1>
+<h3>My accounts</h3>
+@if (owner?.Accounts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Account type</th>
+                <th>Balance</th>
+                <th>Amount</th>
+                <th>Withdraw</th>
+                <th>Deposit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var account in owner.Accounts)
+            {
+                // <EditForm>
+                <tr>
+                    <th>@account.Owner.Name</th>
+                    <th>@account.AccountType.Name</th>
+                    <th>@account.Balance</th>
+                    <th><input type="number" @bind="@Amount" /></th>
+                    <th><button class="btn btn-primary" @onclick="@(o => Withdraw(account.AccountId))">Click me</button></th>
+                    <th><button class="btn btn-primary" @onclick="@(o => Deposit(account.AccountId))">Click me</button></th>
 
-Welcome to your new app.
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code
+{
+    private OwnerDTO owner;
+    private string name;
+    public decimal Amount { get; set; }
+    public AccountDTO Account { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeOwner();
+    }
+
+    public async Task Withdraw(int accountId)
+    {
+        await accountService.Withdraw(accountId, Amount);
+        await InitializeOwner();
+    }
+
+    public async Task Deposit(int accountId)
+    {
+        await accountService.Deposit(accountId, Amount);
+        await InitializeOwner();
+    }
+
+    public async Task InitializeOwner()
+    {
+        if (int.TryParse(httpContextAccessor.HttpContext.User.Claims.Single(o => o.Type == ClaimTypes.PrimarySid).Value, out int ownerId))
+        {
+            owner = await ownerService.GetOwnerById(ownerId);
+            name = owner.Name;
+        }
+    }
+}
+
+
+
+
+

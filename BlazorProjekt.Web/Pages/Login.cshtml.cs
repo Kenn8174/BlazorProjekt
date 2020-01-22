@@ -39,8 +39,11 @@ namespace BlazorProjekt.Web
             {
                 return LocalRedirect("~/Account/Login");
             }
-
-            List<Claim> claims = new List<Claim> { new Claim(ClaimTypes.Name, paramUsername) };
+            List<Claim> claims = new List<Claim>() {
+                new Claim(ClaimTypes.Name, paramUsername),
+                new Claim(ClaimTypes.GivenName,  owner.Name),
+                new Claim(ClaimTypes.PrimarySid, owner.OwnerId.ToString())
+            };
 
             if (owner.Admin)
             {
@@ -48,20 +51,17 @@ namespace BlazorProjekt.Web
             }
 
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties
+            AuthenticationProperties authProperties = new AuthenticationProperties
             {
                 IsPersistent = true,
-                RedirectUri = this.Request.Host.Value
+                RedirectUri = Request.Host.Value
             };
 
             try
             {
-                await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
             }
             catch (Exception ex)
             {

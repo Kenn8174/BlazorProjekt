@@ -35,7 +35,7 @@ namespace BlazorProjekt.Repository.Repositories
 
         public async Task<Owner> Login(string hashedUsername, string hashedPassword)
         {
-            Credential credential = await _dbContext.Credentials.Include(o => o.Owner).AsNoTracking().SingleAsync(o => o.HashedUsername == hashedUsername & o.HashedPassword == hashedPassword);
+            Credential credential = await _dbContext.Credentials.Include(o => o.Owner).ThenInclude(o => o.Accounts).AsNoTracking().SingleAsync(o => o.HashedUsername == hashedUsername & o.HashedPassword == hashedPassword);
             return credential.Owner;
         }
     }

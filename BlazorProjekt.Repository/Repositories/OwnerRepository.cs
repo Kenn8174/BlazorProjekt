@@ -31,7 +31,11 @@ namespace BlazorProjekt.Repository.Repositories
         /// </summary>
         public async Task<Owner> GetOwnerById(int ownerId)
         {
-            IQueryable<Owner> query = _dbContext.Owners.AsNoTracking();
+            IQueryable<Owner> query = _dbContext.Owners
+                .Include(o => o.Accounts)
+                .ThenInclude(o => o.AccountType)
+                .Include(o => o.Sex)
+                .AsNoTracking();
 
             return await query.SingleAsync(o => o.OwnerId == ownerId);
         }
