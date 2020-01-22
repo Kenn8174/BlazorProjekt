@@ -22,6 +22,9 @@ namespace BlazorProjekt.Service.Services
             _mappingService = mappingService;
         }
 
+        /// <summary>
+        /// Changes the password for the owner with the matching ownerId<br></br>
+        /// </summary>
         public async Task<bool> ChangePassword(int ownerId, string newPassword, string oldPassword)
         {
             try
@@ -40,6 +43,9 @@ namespace BlazorProjekt.Service.Services
             }
         }
 
+        /// <summary>
+        /// Creates a new credential for the owner with the matching ownerId
+        /// </summary>
         public async Task CreateNewCredentail(int ownerId, string username, string password)
         {
             byte[] hashedUsername = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(username));
@@ -64,6 +70,7 @@ namespace BlazorProjekt.Service.Services
 
         }
 
+        
         public async Task<OwnerDTO> Login(string username, string password)
         {
             byte[] hashedUsername = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(username));

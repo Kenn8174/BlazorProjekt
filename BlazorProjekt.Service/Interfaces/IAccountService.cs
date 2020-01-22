@@ -28,5 +28,7 @@ namespace BlazorProjekt.Service.Interfaces
         /// Charges interests for all bank accounts.
         /// </summary>
         Task ChargeInterest();
+
+        Task<List<AccountDTO>> GetAccounts();
     }
 }

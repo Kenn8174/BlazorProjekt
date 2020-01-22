@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BlazorProjekt.Repository.Entities;
 
 namespace BlazorProjekt.Repository.Interfaces
@@ -14,5 +15,7 @@ namespace BlazorProjekt.Repository.Interfaces
         /// Gets the <see cref="Owner"/> with the matching ownerId or throws if the <see cref="Owner"/> does not exist
         /// </summary>
         Task<Owner> GetOwnerById(int ownerId);
+
+        Task<List<Owner>> GetOwners();
     }
 }

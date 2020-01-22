@@ -39,6 +39,21 @@ namespace BlazorProjekt.Service.Services
             }
         }
 
+        public async Task<List<OwnerDTO>> GetOwners()
+        {
+            try
+            {
+                List<OwnerDTO> owners = _mappingService._mapper.Map<List<OwnerDTO>>(await _ownerRepository.GetOwners());
+                LogInformation($"Successfully fetched a list of owners");
+                return owners;
+            }
+            catch (Exception e)
+            {
+                LogError($"Failed to fetch a list of owners", e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Checks if the <see cref="OwnerDTO"/> with the <paramref name="ownerId"/> is an admin
         /// </summary>

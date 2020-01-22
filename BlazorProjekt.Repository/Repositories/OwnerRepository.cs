@@ -4,6 +4,7 @@ using BlazorProjekt.Repository.Entities;
 using BlazorProjekt.Repository.Interfaces;
 using BlazorProjekt.Repository.Context;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace BlazorProjekt.Repository.Repositories
 {
@@ -33,6 +34,11 @@ namespace BlazorProjekt.Repository.Repositories
             IQueryable<Owner> query = _dbContext.Owners.AsNoTracking();
 
             return await query.SingleAsync(o => o.OwnerId == ownerId);
+        }
+
+        public async Task<List<Owner>> GetOwners()
+        {
+            return await _dbContext.Owners.Include(o => o.Sex).AsNoTracking().ToListAsync();
         }
 
     }

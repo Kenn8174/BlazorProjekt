@@ -71,6 +71,21 @@ namespace BlazorProjekt.Service.Services
             }
         }
 
+        public async Task<List<AccountDTO>> GetAccounts()
+        {
+            try
+            {
+                List<AccountDTO> accounts = _mappingService._mapper.Map<List<AccountDTO>>(await _accountRepository.GetAccounts());
+                LogInformation($"Successfully fetched a list of accounts");
+                return accounts;
+            }
+            catch (Exception e)
+            {
+                LogError($"Failed to fetch a list of accounts", e);
+                return null;
+            }
+        }
+
         /// <summary>
         /// Withdraws an amount from the <see cref="AccountDTO"/> with a matching accountId.
         /// </summary>

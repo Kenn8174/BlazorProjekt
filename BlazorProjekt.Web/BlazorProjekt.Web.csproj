@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Admininstrator\**" />
+    <Content Remove="Pages\Admininstrator\**" />
+    <EmbeddedResource Remove="Pages\Admininstrator\**" />
+    <None Remove="Pages\Admininstrator\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.1.0-preview4.19579.2" />
@@ -24,10 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorProjekt.Repository\BlazorProjekt.Repository.csproj" />
     <ProjectReference Include="..\BlazorProjekt.Service\BlazorProjekt.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Admininstrator\" />
   </ItemGroup>
 
 </Project>

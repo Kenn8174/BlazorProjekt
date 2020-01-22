@@ -1,0 +1,77 @@
+﻿@page "/Admin"
+@using BlazorProjekt.Service.DataTransferObjects
+@using BlazorProjekt.Service.Interfaces
+
+@inject IOwnerService ownerService
+@inject IAccountService accountService
+
+<h3>Admin page</h3>
+
+<h4>Owners</h4>
+@if (owners == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var owner in owners)
+            {
+                <tr>
+                    <th>@owner.Name</th>
+                    <th>@owner.Age</th>
+                    <th>@owner.Sex.Name</th>
+                    <th>@owner.Admin</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h4>Accounts</h4>
+@if (accounts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Account type</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var account in accounts)
+            {
+                <tr>
+                    <th>@account.Owner.Name</th>
+                    <th>@account.AccountType.Name</th>
+                    <th>@account.Balance</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<OwnerDTO> owners;
+    private List<AccountDTO> accounts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        owners = await ownerService.GetOwners();
+        accounts = await accountService.GetAccounts();
+    }
+}

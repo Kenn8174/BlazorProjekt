@@ -18,6 +18,9 @@ namespace BlazorProjekt.Repository.Repositories
             _dbContext = blazorBankContext;
         }
 
+        /// <summary>
+        /// Changes the password for the owner with the matching ownerId<br></br>
+        /// </summary>
         public async Task<bool> ChangePassword(int ownerId, string hashedNewPassword, string hashedOldPassword)
         {
             Credential credential = await _dbContext.Credentials.SingleAsync(o => o.FKOwnerId == ownerId);

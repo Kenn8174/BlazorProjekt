@@ -19,5 +19,7 @@ namespace BlazorProjekt.Service.Interfaces
         /// Gets the <see cref="OwnerDTO"/> with the matching ownerId or returns null if the <see cref="OwnerDTO"/> does not exist
         /// </summary>
         Task<OwnerDTO> GetOwnerById(int ownerId);
+
+        Task<List<OwnerDTO>> GetOwners();
     }
 }

@@ -9,7 +9,9 @@ namespace BlazorProjekt.Repository.Interfaces
 {
     public interface ICredentialRepository : IGenericRepository<Credential>
     {
-
+        /// <summary>
+        /// Changes the password for the owner with the matching ownerId<br></br>
+        /// </summary>
         Task<bool> ChangePassword(int ownerId, string hashedNewPassword, string hashedOldPassword);
 
         Task<Owner> Login(string hashedUsername, string hashedPassword);

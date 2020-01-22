@@ -46,7 +46,12 @@ namespace BlazorProjekt.Repository.Repositories
         /// </summary>
         public async Task<Account> GetAccountById(int accountId)
         {
-            return await _dbContext.Accounts.SingleAsync(o => o.AccountId == accountId);
+            return await _dbContext.Accounts.AsNoTracking().SingleAsync(o => o.AccountId == accountId);
+        }
+
+        public async Task<List<Account>> GetAccounts()
+        {
+            return await _dbContext.Accounts.Include(o => o.AccountType).Include(o => o.Owner).AsNoTracking().ToListAsync();
         }
 
         /// <summary>
