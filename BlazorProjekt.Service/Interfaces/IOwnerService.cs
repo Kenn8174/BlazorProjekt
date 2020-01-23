@@ -20,6 +20,8 @@ namespace BlazorProjekt.Service.Interfaces
         /// </summary>
         Task<OwnerDTO> GetOwnerById(int ownerId);
 
+        Task<int> CreateNewOwner(OwnerDTO owner);
+
         Task<List<OwnerDTO>> GetOwners();
     }
 }

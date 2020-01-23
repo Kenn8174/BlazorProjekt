@@ -16,6 +16,8 @@ namespace BlazorProjekt.Repository.Interfaces
         /// </summary>
         Task<Owner> GetOwnerById(int ownerId);
 
+        Task<int> CreateNewOwner(Owner owner);
+
         Task<List<Owner>> GetOwners();
     }
 }

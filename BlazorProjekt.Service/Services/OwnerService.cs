@@ -21,6 +21,21 @@ namespace BlazorProjekt.Service.Services
             _mappingService = mappingService;
         }
 
+        public async Task<int> CreateNewOwner(OwnerDTO owner)
+        {
+            try
+            {
+                int ownerId = await _ownerRepository.CreateNewOwner(_mappingService._mapper.Map<Owner>(owner));
+                LogInformation($"Successfully created a new owner with the ownerId: {ownerId}");
+                return ownerId;
+            }
+            catch (Exception e)
+            {
+                LogError($"Failed to created a new owner", e);
+                return 0;
+            }
+        }
+
         /// <summary>
         /// Gets the <see cref="OwnerDTO"/> with the matching ownerId or returns null if the <see cref="OwnerDTO"/> does not exist
         /// </summary>

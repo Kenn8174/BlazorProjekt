@@ -45,5 +45,11 @@ namespace BlazorProjekt.Repository.Repositories
             return await _dbContext.Owners.Include(o => o.Sex).AsNoTracking().ToListAsync();
         }
 
+        public async Task<int> CreateNewOwner(Owner owner)
+        {
+            await _dbContext.Owners.AddAsync(owner);
+            await _dbContext.SaveChangesAsync();
+            return owner.OwnerId;
+        }
     }
 }

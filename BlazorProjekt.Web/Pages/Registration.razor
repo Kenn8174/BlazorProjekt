@@ -1,0 +1,95 @@
+﻿@page "/Registration"
+@using BlazorProjekt.Service.DataTransferObjects;
+@using BlazorProjekt.Service.Interfaces;
+@using BlazorProjekt.Web.Models;
+
+@inject IOwnerService ownerService
+@inject ICredentialService credentialService
+
+    <EditForm Model="@Model" OnValidSubmit="@RegistrateOwner" OnInvalidSubmit="@HandleInvalidSubmit">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="alert @Model.StatusClass">@Model.StatusMessage</div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Username</span>
+            </div>
+            <InputText type="text" class="form-control" placeholder="Username" @bind-Value="Model.Username" />
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Password</span>
+            </div>
+            <InputText type="password" class="form-control" placeholder="Password" @bind-Value="Model.Password" />
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Fullname</span>
+            </div>
+            <InputText placeholder="Fullname" class="form-control" @bind-Value="Model.Name" />
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Age</span>
+            </div>
+            <InputNumber placeholder="Age" class="form-control" @bind-Value="Model.Age" />
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Sex</span>
+            </div>
+            <InputSelect @bind-Value="Model.Sex" class="form-control">
+                <option selected value="1">Male</option>
+                <option value="2">Female</option>
+                <option value="3">Transsexual Male</option>
+                <option value="4">Transsexual Female</option>
+            </InputSelect>
+        </div>
+
+        <label>Submit</label>
+        <button type="submit">OK</button>
+    </EditForm>
+
+@code  {
+
+    public RegistrationModel Model { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Model = new RegistrationModel();
+    }
+
+    private async Task RegistrateOwner()
+    {
+        OwnerDTO owner = new OwnerDTO
+        {
+            Name = Model.Name,
+            Age = Model.Age,
+            FKSexId = Model.Sex,
+        };
+
+        int ownerId = await ownerService.CreateNewOwner(owner);
+
+        if (ownerId > 0)
+        {
+            await credentialService.CreateNewCredentail(ownerId, Model.Username, Model.Password);
+            Model.StatusClass = "alert-info";
+            Model.StatusMessage = DateTime.Now + " - Successfully created a new user for " + owner.Name;
+        }
+
+
+    }
+
+    private void HandleInvalidSubmit()
+    {
+        Model.StatusClass = "alert-danger";
+        Model.StatusMessage = DateTime.Now + " - Handle invalid submit";
+    }
+}

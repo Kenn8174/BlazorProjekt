@@ -7,6 +7,7 @@
 @inject IHttpContextAccessor httpContextAccessor
 @inject IOwnerService ownerService
 @inject IAccountService accountService
+@inject IAccountTypeService accountTypeService
 <h1>Velkommen til banken</h1>
 
 <h3>My accounts</h3>
@@ -30,7 +31,6 @@ else
         <tbody>
             @foreach (var account in owner.Accounts)
             {
-                // <EditForm>
                 <tr>
                     <th>@account.Owner.Name</th>
                     <th>@account.AccountType.Name</th>
@@ -41,6 +41,22 @@ else
 
                 </tr>
             }
+            <tr>
+                <th>@owner.Name</th>
+                <th>
+                    <select @bind="_selectedAccountType">
+                        @foreach (var accountType in accountTypes)
+                        {
+                            <option value="@accountType.AccountTypeId">@accountType.Name</option>
+                        }
+                    </select>
+                </th>
+                <th>0</th>
+                <th><button class="btn btn-primary" @onclick="@CreateNewAccount">Create new account</button></th>
+                <th></th>
+                <th></th>
+
+            </tr>
         </tbody>
     </table>
 }
@@ -48,13 +64,16 @@ else
 @code
 {
     private OwnerDTO owner;
-    private string name;
     public decimal Amount { get; set; }
+    private int _selectedAccountType;
+    private List<AccountTypeDTO> accountTypes;
     public AccountDTO Account { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
         await InitializeOwner();
+        accountTypes = await accountTypeService.GetAll();
     }
 
     public async Task Withdraw(int accountId)
@@ -69,12 +88,23 @@ else
         await InitializeOwner();
     }
 
+    public async Task CreateNewAccount()
+    {
+        AccountDTO account = new AccountDTO()
+        {
+            FKAccountTypeId = _selectedAccountType,
+            Balance = 0,
+            FKOwnerId = owner.OwnerId
+        };
+        await accountService.Create(account);
+        await InitializeOwner();
+    }
+
     public async Task InitializeOwner()
     {
         if (int.TryParse(httpContextAccessor.HttpContext.User.Claims.Single(o => o.Type == ClaimTypes.PrimarySid).Value, out int ownerId))
         {
             owner = await ownerService.GetOwnerById(ownerId);
-            name = owner.Name;
         }
     }
 }
